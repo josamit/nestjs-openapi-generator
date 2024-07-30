@@ -19,10 +19,10 @@
     "prepack": "rm -rf lib && tsc -b && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md",
     "generate:templates": "ts-node ./src/template-watcher.ts",
-    "generate:hooks": "./bin/run generate -s ./test/kitchen-sink.yaml -t async-data-fetch -o ./test/generated/hooks",
-    "generate:browser-clients": "./bin/run generate -s ./test/kitchen-sink.yaml -t browser-client -o ./test/generated/browser",
-    "generate:backend-handlers": "./bin/run generate -s ./test/kitchen-sink.yaml -t nestjs-backend -o ./test/generated --extras include-twilio-utils",
-    "generate:backend-clients": "./bin/run generate -s ./test/kitchen-sink.yaml -t nestjs-backend-client -o ./test/generated"
+    "generate:hooks": "./bin/run.ts generate -s ./test/kitchen-sink.yaml -t async-data-fetch -o ./test/generated/hooks",
+    "generate:browser-clients": "./bin/run.ts generate -s ./test/kitchen-sink.yaml -t browser-client -o ./test/generated/browser",
+    "generate:backend-handlers": "./bin/run.ts generate -s ./test/kitchen-sink.yaml -t nestjs-backend -o ./test/generated --extras include-twilio-utils",
+    "generate:backend-clients": "./bin/run.ts generate -s ./test/kitchen-sink.yaml -t nestjs-backend-client -o ./test/generated"
   },
   "repository": {
     "type": "git",
@@ -85,7 +85,7 @@
     ]
   },
   "bin": {
-    "nestjs-openapi-generator": "./bin/run.ts"
+    "nestjs-openapi-generator": "./bin/run.ts.ts"
   },
   "types": "lib/index.d.ts",
   "lint-staged": {
