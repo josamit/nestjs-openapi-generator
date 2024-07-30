@@ -4,16 +4,16 @@
   "description": "scaffolding framework for nestjs based backend applications leveraging open api specs",
   "main": "index.js",
   "scripts": {
-    "prebuild": "npm run generate:templates",
+    "prebuild": "yarn generate:templates",
     "build": "tsc -p tsconfig.json",
-    "pretest": "npm run clean && npm run build && npm run generate:hooks && npm run generate:backend-clients && npm run generate:browser-clients && npm run generate:backend-handlers",
+    "pretest": "yarn clean && yarn build && yarn generate:hooks && yarn generate:backend-clients && yarn generate:browser-clients && yarn generate:backend-handlers",
     "clean": "rm -rf ./lib && rm -rf ./test/generated && rm -rf ./src/templates.ts",
     "test": "jest",
-    "lint": "npm run lint:js",
-    "lint:js": "npm run lint:js:base '{src,test}/**/*'",
+    "lint": "yarn lint:js",
+    "lint:js": "yarn lint:js:base '{src,test}/**/*'",
     "lint:js:base": "eslint --ext .js,.ts",
-    "lint:fix": "npm run lint:js -- --fix",
-    "prettier": "npm run prettier:base -- \"**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx}\"",
+    "lint:fix": "yarn lint:js -- --fix",
+    "prettier": "yarn prettier:base -- \"**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx}\"",
     "prettier:base": "prettier --config ./.prettierrc.js",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib && tsc -b && oclif manifest && oclif readme",
@@ -36,7 +36,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
+      "pre-push": "yarn test"
     }
   },
   "author": "josamit",
@@ -90,11 +90,11 @@
   "types": "lib/index.d.ts",
   "lint-staged": {
     "{src,test}/**/*.{js,jsx,ts,tsx}": [
-      "npm run lint:js:base --fix",
-      "npm run prettier:base --write"
+      "yarn lint:js:base --fix",
+      "yarn prettier:base --write"
     ],
     "*.{json,md,scss,yaml,yml}": [
-      "npm run prettier:base --write"
+      "yarn prettier:base --write"
     ]
   }
 }
