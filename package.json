@@ -1,0 +1,16 @@
+{
+  "name": "nestjs-openapi-generator",
+  "version": "1.0.0",
+  "description": "scaffolding framework for nestjs based backend applications leveraging open api specs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nestjs",
+    "openapi",
+    "generator"
+  ],
+  "author": "josamit",
+  "license": "MIT"
+}
