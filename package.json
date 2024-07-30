@@ -1,16 +1,98 @@
 {
   "name": "nestjs-openapi-generator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "scaffolding framework for nestjs based backend applications leveraging open api specs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "npm run generate:templates",
+    "build": "tsc -p tsconfig.json",
+    "pretest": "npm run clean && npm run build && npm run generate:hooks && npm run generate:backend-clients && npm run generate:browser-clients && npm run generate:backend-handlers",
+    "clean": "rm -rf ./lib && rm -rf ./test/generated && rm -rf ./src/templates.ts",
+    "test": "jest",
+    "lint": "npm run lint:js",
+    "lint:js": "npm run lint:js:base '{src,test}/**/*'",
+    "lint:js:base": "eslint --ext .js,.ts",
+    "lint:fix": "npm run lint:js -- --fix",
+    "prettier": "npm run prettier:base -- \"**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx}\"",
+    "prettier:base": "prettier --config ./.prettierrc.js",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "version": "oclif readme && git add README.md",
+    "generate:templates": "ts-node ./src/template-watcher.ts",
+    "generate:hooks": "./bin/run generate -s ./test/kitchen-sink.yaml -t async-data-fetch -o ./test/generated/hooks",
+    "generate:browser-clients": "./bin/run generate -s ./test/kitchen-sink.yaml -t browser-client -o ./test/generated/browser",
+    "generate:backend-handlers": "./bin/run generate -s ./test/kitchen-sink.yaml -t nestjs-backend -o ./test/generated --extras include-twilio-utils",
+    "generate:backend-clients": "./bin/run generate -s ./test/kitchen-sink.yaml -t nestjs-backend-client -o ./test/generated"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:josamit/nestjs-openapi-generator.git"
   },
   "keywords": [
     "nestjs",
     "openapi",
     "generator"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
   "author": "josamit",
-  "license": "MIT"
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "npm": ">=9.0.0",
+    "yarn": ">=1.22.0",
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/change-case": "^2.3.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.0.0",
+    "change-case": "^5.4.4",
+    "eslint": "^9.8.0",
+    "husky": "^9.1.4",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.2.7",
+    "ts-jest": "^29.2.3",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.0.17",
+    "handlebars": "^4.7.8",
+    "mustache": "^4.2.0",
+    "oclif": "^4.14.12"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/templates"
+  ],
+  "oclif": {
+    "commands": "./lib/cli/commands",
+    "bin": "nestjs-openapi-generator",
+    "repositoryPrefix": "https://github.com/josamit/nestjs-openapi-generator/blob/v<%- version %>/<%- commandPath %>",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "bin": {
+    "nestjs-openapi-generator": "./bin/run"
+  },
+  "types": "lib/index.d.ts",
+  "lint-staged": {
+    "{src,test}/**/*.{js,jsx,ts,tsx}": [
+      "npm run lint:js:base --fix",
+      "npm run prettier:base --write"
+    ],
+    "*.{json,md,scss,yaml,yml}": [
+      "npm run prettier:base --write"
+    ]
+  }
 }

@@ -1,0 +1,11 @@
+.idea
+node_modules
+build
+generated
+lib
+yarn-error.log
+tsconfig.tsbuildinfo
+lib/
+oclif.manifest.json
+coverage/
+src/templates.ts
