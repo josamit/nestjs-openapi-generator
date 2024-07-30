@@ -1,6 +1,6 @@
 {
   "name": "nestjs-openapi-generator",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "scaffolding framework for nestjs based backend applications leveraging open api specs",
   "main": "index.js",
   "scripts": {
