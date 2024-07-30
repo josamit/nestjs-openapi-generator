@@ -9,3 +9,4 @@ lib/
 oclif.manifest.json
 coverage/
 /src/templates.ts
+/.env.local
