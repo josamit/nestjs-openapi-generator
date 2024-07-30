@@ -16,7 +16,7 @@
     "prettier": "npm run prettier:base -- \"**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx}\"",
     "prettier:base": "prettier --config ./.prettierrc.js",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc -b && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md",
     "generate:templates": "ts-node ./src/template-watcher.ts",
     "generate:hooks": "./bin/run generate -s ./test/kitchen-sink.yaml -t async-data-fetch -o ./test/generated/hooks",
@@ -75,15 +75,17 @@
     "/templates"
   ],
   "oclif": {
-    "commands": "./lib/cli/commands",
     "bin": "nestjs-openapi-generator",
+    "commands": "./lib/cli/commands",
+    "dirname": "nestjs-openapi-generator",
+    "topicSeparator": " ",
     "repositoryPrefix": "https://github.com/josamit/nestjs-openapi-generator/blob/v<%- version %>/<%- commandPath %>",
     "plugins": [
       "@oclif/plugin-help"
     ]
   },
   "bin": {
-    "nestjs-openapi-generator": "./bin/run"
+    "nestjs-openapi-generator": "./bin/run.ts"
   },
   "types": "lib/index.d.ts",
   "lint-staged": {
